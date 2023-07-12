@@ -12,7 +12,7 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
 
 	POST /login
 
-Для получения Token необходимо использовать логин и пароль от личного кабинета https://platform.adserving.ru. Token выдается на 45 дней и должен быть перегенерирован этим методом через этот период.
+Для получения Token необходимо использовать логин и пароль от личного кабинета https://platform.adserving.ru. Token выдается на 45 дней и должен быть перегенерирован этим методом каждые 45 дней.
 
 Запрос Token:
 
@@ -114,7 +114,7 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
 }
 
 timeZone - тайм зона для генерации отчета;
-type - тип отчета, вчегда используетя Custom;
+type - тип отчета, вcегда используетcя Custom;
 dataStartTimestamp - дата начала периода отчета;
 dataEndTimestamp- дата конца периода отчета.
 ```
@@ -135,12 +135,12 @@ type - всегдя none
 exportFileType - тип отчета excel/csv;
 compressionType - архивация отчета none/zip;
 emailRecipients - способ получения example@domain.com - отправить на email / none - отчет будет доступен для скачивания через  API  или из https://platform.adserving.ru/#/spa/analytics/report-builder/report-history/main
-exportFileNamePrefix - текст, который будет добавлек к названия отчета;
-appendTimestampToReportName - добавления timestamp в название отчета true/false.
+exportFileNamePrefix - текст, который будет добавлен к названию отчета;
+appendTimestampToReportName - добавлениe timestamp в название отчета true/false.
 ```
 
 ```
-Набор аттрибутов и метрик в отчете:
+Набор атрибутов и метрик в отчете:
 
 "reportStructure": {
 	"attributeIDs": ["Account Name"],

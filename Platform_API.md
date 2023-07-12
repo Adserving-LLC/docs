@@ -1,4 +1,4 @@
-## Adserving API
+## Adserving platform API
 
 	API доступно по адресу https://platform.adserving.ru/api
 

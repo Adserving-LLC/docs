@@ -2,7 +2,7 @@
 
 	API доступно по адресу https://platform.adserving.ru/api
 
-Для работы через API необходимо получить Token методом /api/login. Для авторизации через полученный токен использется заголовок Bearer Token.
+Для работы через API необходимо получить Token методом /api/login. Для авторизации через полученный токен используется заголовок Bearer Token.
 
 ```
 Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGhaQXl!h
@@ -116,7 +116,7 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
 timeZone - тайм зона для генерации отчета;
 type - тип отчета, вcегда используетcя Custom;
 dataStartTimestamp - дата начала периода отчета;
-dataEndTimestamp- дата конца периода отчета.
+dataEndTimestamp - дата конца периода отчета.
 ```
 
 ```

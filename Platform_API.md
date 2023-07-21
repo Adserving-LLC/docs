@@ -48,6 +48,7 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
 
 Для запроса необходимо передать JSON объект, полученный из кабинета https://platform.adserving.ru/. Для этого вы настраиваете все поля отчета в кабинете. После этого нажимаете кнопку "GET API JSON". !["GET API JSON"](imgs/get_api_json_button.jpg).
 
+
 В буфер обмена будет скопирован JSON объект, который необходимо использовать для запроса отчета:
 
 ```

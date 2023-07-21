@@ -42,11 +42,13 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
 
 #### Запрос генерации отчета
 
-	POST /api/reports/generate
+	POST /api/report/generate
 
-Пример: https://platform.adserving.ru/api/reports/generate
+Пример: https://platform.adserving.ru/api/report/generate
 
-Для запроса необходимо передать JSON объект, полученный из кабинета https://platform.adserving.ru/. Для этого вы настраиваете все поля отчета в кабинете. После этого нажимаете кнопку "GET API JSON". В буфер обмена будет скопирован JSON объект, который необходимо использовать для запроса отчета:
+Для запроса необходимо передать JSON объект, полученный из кабинета https://platform.adserving.ru/. Для этого вы настраиваете все поля отчета в кабинете. После этого нажимаете кнопку "GET API JSON". !["GET API JSON"](imgs/get_api_json_button.jpg).
+
+В буфер обмена будет скопирован JSON объект, который необходимо использовать для запроса отчета:
 
 ```
 {

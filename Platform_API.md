@@ -1,5 +1,7 @@
 ## Adserving platform API
 
+[< К оглавлению](README.md)
+
 	API доступно по адресу https://platform.adserving.ru/api
 
 Для работы через API необходимо получить Token методом /api/login. Для авторизации через полученный токен используется заголовок Bearer Token.

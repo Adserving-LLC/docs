@@ -1,5 +1,7 @@
 # Токены AdServing для передачи параметров на посадочную страницу
 
+[< К оглавлению](README.md)
+
 Для передачи параметров в посадочную ссылку используются токены AdServing. Они добавляются в посадочную ссылку при заведении плейсментов как get-параметры. Имена токенов регистронезависимы.
 
     Общие правила добавления токена:
@@ -11,42 +13,42 @@
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%client_id%]|Идентификатор клиента|цифра|cid|https://adserving.ru?utm_term=test&cid=[%client_id%]|
+[%client_id%]|Уникальный идентификатор клиента|цифра|cid|https://adserving.ru?utm_term=test&cid=[%client_id%]|
 [%client_name%]|Название клиента|строка|cname|https://adserving.ru?utm_term=test&cname=[%client_name%]|
 
 ### Агентство
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%agency_id%]|Идентификатор агенства|цифра|aid|https://adserving.ru?utm_term=test&aid=[%agency_id%]|
+[%agency_id%]|Уникальный идентификатор агенства|цифра|aid|https://adserving.ru?utm_term=test&aid=[%agency_id%]|
 [%agency_name%]|Название агенства|строка|aname|https://adserving.ru?utm_term=test&aname=[%agency_name%]|
 
 ### Рекламна кампания
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%campaign_id%]|Идентификатор рекламной кампании|цифра|camp_id|https://adserving.ru?utm_term=test&camp_id=[%campaign_id%]|
+[%campaign_id%]|Уникальный идентификатор рекламной кампании|цифра|camp_id|https://adserving.ru?utm_term=test&camp_id=[%campaign_id%]|
 [%campaign_name%]|Название рекламной кампании|строка|camp_name|https://adserving.ru?utm_term=test&camp_name=[%campaign_name%]|
 
 ### Плейсмент
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%placement_id%]|Идентификатор плейсмента|цифра|plid|https://adserving.ru?utm_term=test&plid=[%placement_id%]|
+[%placement_id%]|Уникальный идентификатор плейсмента|цифра|plid|https://adserving.ru?utm_term=test&plid=[%placement_id%]|
 [%placement_name%]|Название плейсмента|строка|plname|https://adserving.ru?utm_term=test&plname=[%placement_name%]|
 
 ### Креатив
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%ad_id%]|Идентификатор креатива|цифра|aid|https://adserving.ru?utm_term=test&aid=[%ad_id%]|
+[%ad_id%]|Уникальный идентификатор креатива|цифра|aid|https://adserving.ru?utm_term=test&aid=[%ad_id%]|
 [%ad_name%]|Название креатива|строка|aname|https://adserving.ru?utm_term=test&aname=[%ad_name%]|
 
 ### Пользователь
 
 |Токен|Значение|Тип данных|пример get-параметра|пример посадочной|
 |---|---|---|---|---|
-[%tp_user%]|Идентификатор пользователя|строка|uuid|https://adserving.ru?utm_term=test&uuid=[%tp_user%]|
+[%tp_user%]|Уникальный идентификатор пользователя|строка|uuid|https://adserving.ru?utm_term=test&uuid=[%tp_user%]|
 
 ### Динамические параметры
 

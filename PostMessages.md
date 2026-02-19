@@ -53,7 +53,7 @@ window.addEventListener('message', function(e) {
 
           // Событие показа для web среды
           case 'ebInitAction':
-          case 'ebInitDone'
+          case 'ebInitDone':
             console.log('Adserving Impression');
             break;
 

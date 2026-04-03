@@ -1,61 +1,72 @@
-## Adserving platform API
+# Adserving Platform API
 
 [< К оглавлению](README.md)
 
-	API доступно по адресу https://platform.adserving.ru/api
+Эндпоинт сервиса API:
 
-Для работы через API необходимо получить Token методом /api/login. Для авторизации через полученный токен используется заголовок Bearer Token.
-
-```
-Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGhaQXl!h
+```text
+https://platform.adserving.ru/api
 ```
 
-### Получение токена
+Обратите внимание, если у вас доступ к [ЛК](https://lk.adserving.ru/), то следует указывать следующий эндпоинт:
 
-	POST /login
+```text
+https://lk.adserving.ru/api
+```
 
-Для получения Token необходимо использовать логин и пароль от личного кабинета https://platform.adserving.ru. Token выдается на 45 дней и должен быть перегенерирован этим методом каждые 45 дней.
-
-Запрос Token:
+## Получение токена
 
 ```
+POST /login
+```
+
+Для работы через API необходимо получить `token`. Этот токен должен использоваться в заголовке `Bearer Token` для всех
+последующих запросов к API.
+
+Чтобы получить `token` необходимо использовать логин и пароль от [Платформы](https://platform.adserving.ru) (
+или [ЛК](https://lk.adserving.ru), если у вас есть к нему доступ). Токен действителен в течение 45 дней с момента
+создания.
+
+Пример тела запроса токена:
+
+```json
 {
-	"login":"логин_от_личного_кабинета",
-	"password":"пароль_от_личного_кабинета"
+   "login":"логин_от_личного_кабинета",
+   "password":"пароль_от_личного_кабинета"
 }
 ```
 
-Ответ:
-```
+Пример ответа сервиса:
+
+```json
 {
-	"token":"poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGhaQXl!h"
+   "token":"poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGhaQXl!h"
 }
 ```
 
-Ошибка авторизации:
-```
+Пример ошибки авторизации:
+
+```json
 {
-	"report_id":"-1",
-	"message":"Unloginned user"
+   "report_id":"-1",
+   "message":"Unloginned user"
 }
 ```
 
-### Отчеты
+## Создание отчета
 
-#### Запрос генерации отчета
+```text
+POST /report/generate
+```
 
-	POST /api/report/generate
-
-Пример: https://platform.adserving.ru/api/report/generate
-
-Для запроса необходимо передать JSON объект, полученный из кабинета https://platform.adserving.ru/. Для этого вы настраиваете все поля отчета в кабинете. После этого нажимаете кнопку "GET API JSON".
+В качестве тела запроса необходимо передать JSON объект, полученный из вашего кабинета. Для этого вы настраиваете все
+поля отчета в кабинете. После этого нажимаете кнопку `GET API JSON`.
 
 !["GET API JSON"](imgs/get_api_json_button.jpg).
 
+Пример JSON объекта для создания отчета:
 
-В буфер обмена будет скопирован JSON объект, который необходимо использовать для запроса отчета:
-
-```
+```json
 {
     "entities": [{
         "type": "AnalyticsReport",
@@ -108,141 +119,120 @@ Authorization: Bearer poKwGAWsyE!FQy33OPsOM4CU_5kQ#TzIN6RGcSpBhfCiZ*ZhzOVzw9GgGh
     }]
 }
 ```
-В запросе указываются следующие объекты:
 
-```
-Период отчета:
+### timeRange (период отчета)
 
-"timeRange": {
-	"timeZone": "Europe/Moscow",
-	"type": "Custom",
-	"dataStartTimestamp": "2023-05-27T00:00:00.000Z",
-	"dataEndTimestamp": "2023-06-25T23:59:00.000Z"
-}
+| Свойство             | Тип      | Значение по умолчанию | Описание                                 |
+|----------------------|----------|-----------------------|------------------------------------------|
+| `timeZone`           | `String` | `Europe/Moscow`       | Часовой пояс отчета                      |
+| `type`               | `String` | `Custom`              | Тип отчета, вcегда используетcя `Custom` |
+| `dataStartTimestamp` | `String` |                       | Дата начала периода отчета               |
+| `dataEndTimestamp`   | `String` |                       | Дата конца периода отчета                |
 
-timeZone - тайм зона для генерации отчета;
-type - тип отчета, вcегда используетcя Custom;
-dataStartTimestamp - дата начала периода отчета;
-dataEndTimestamp - дата конца периода отчета.
-```
+### reportDeliveryMethods (способ получения отчета)
 
-```
-Способ получения отчета:
+| Свойство                      | Тип                 | Значение по умолчанию | Описание                                                                                                                                                                                                                                                                                                                                                          |
+|-------------------------------|---------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`                        | `String`            | `none`                | Всегда одно значение                                                                                                                                                                                                                                                                                                                                              |
+| `exportFileType`              | `String`            | `excel`               | Тип отчета excel/csv                                                                                                                                                                                                                                                                                                                                              |
+| `compressionType`             | `String`            | `none`                | Сжатие отчета:<br/>`none` - без сжатия (подходит для небольших отчетов);<br/>`zip` - сжатие в zip архив                                                                                                                                                                                                                                                           |
+| `emailRecipients`             | `[]String`,`String` |                       | Массив почтовых адресов, на которые будет отправлен готовый отчет. <br/>Если указать `none`, отчет будет доступен для скачивания через API или из вашего личного кабинета (в [Platform](https://platform.adserving.ru/#/spa/analytics/report-builder/report-history/main) или в [ЛК](https://lk.adserving.ru/#/spa/analytics/report-builder/report-history/main)) |
+| `exportFileNamePrefix`        | `String`            |                       | Текст, который будет добавлен в начало имени файла отчета                                                                                                                                                                                                                                                                                                         |
+| `appendTimestampToReportName` | `Boolean`           | `false`               | Добавляет timestamp в название отчета                                                                                                                                                                                                                                                                                                                             |
 
-"reportDeliveryMethods": [{
-	"type": "none",
-	"exportFileType": "excel",
-	"compressionType": "none",
-	"emailRecipients": ["example@domain.com"],
-	"exportFileNamePrefix": "test123",
-	"appendTimestampToReportName": false
-}]
+### reportStructure (набор атрибутов и метрик в отчете)
 
-type - всегдя none
-exportFileType - тип отчета excel/csv;
-compressionType - архивация отчета none/zip;
-emailRecipients - способ получения example@domain.com - отправить на email / none - отчет будет доступен для скачивания через  API  или из https://platform.adserving.ru/#/spa/analytics/report-builder/report-history/main
-exportFileNamePrefix - текст, который будет добавлен к названию отчета;
-appendTimestampToReportName - добавлениe timestamp в название отчета true/false.
-```
+| Свойство                | Тип        | Значение по умолчанию | Описание                                                         |
+|-------------------------|------------|-----------------------|------------------------------------------------------------------|
+| `attributeIDs`          | `[]String` |                       | Массив атрибутов                                                 |
+| `metricIDs`             | `[]String` |                       | Массив метрик                                                    |
+| `attributeIDsOnColumns` | `[]Int32`  | `[]`                  | Оставьте пустой массив                                           |
+| `timeBreakdown`         | `String`   | `day`                 | Группировка данных по дате (`day`,`week`,`month`,`year`,`total`) |
 
-```
-Набор атрибутов и метрик в отчете:
+### filters (фильтры по плейсментам и сайтам)
 
-"reportStructure": {
-	"attributeIDs": ["Account Name"],
-	"metricIDs": ["impressions Gross"],
-	"attributeIDsOnColumns": [],
-	"timeBreakdown": "day"
-}
+| Свойство     | Тип       | Значение по умолчанию | Описание                                                                                             |
+|--------------|-----------|-----------------------|------------------------------------------------------------------------------------------------------|
+| `placements` | `[]Int32` | `[]`                  | Массив плейсментов по которым выбираются данные. Оставьте массив пустым, что выбрать все плейсменты. |
+| `sites`      | `[]Int32` | `[]`                  | Массив сайтов  по которым выбираются данные. Оставьте массив пустым, что выбрать все сайты.          |
 
-attributeIDs - массив атрибутов;
-metricIDs - массив метрик;
-attributeIDsOnColumns - пустой массив;
-timeBreakdown - группировка по дате day/week/month/year/total.
-```
+Пример успешного ответа:
 
-```
-Фильтры по плейсментам и сайтам:
-
-"filters": {
-	"placements": [],
-	"sites": []
-}
-
-placements - массив плейсментов в отчете. Пустой массив = все плейсменты;
-sites - массив сайтов в отчете. Пустой массив = все сайты.
-```
-
-Ответ:
-
-```
+```json
 {
-    "report_id": "a70bf4f6229f792191bdd9f5cdfe99e1",
-    "message": "The report is added to queue!"
+   "report_id": "a70bf4f6229f792191bdd9f5cdfe99e1",
+   "message": "The report is added to queue!"
 }
 ````
 
-Ошибки:
+Пример ошибки:
 
-```
+```json
 {
-    "report_id": "-1",
-    "message": "Error: the report has a wrong format!"
+   "report_id": "-1",
+   "message": "Error: the report has a wrong format!"
 }
 ```
 
-Ошибка авторизации:
-```
+Пример ошибки авторизации:
+
+```json
 {
-	"report_id":"-1",
-	"message":"Unloginned user"
+   "report_id":"-1",
+   "message":"Unloginned user"
 }
 ```
 
-### Получение списка сренерированных отчетов
+## Получение списка сгенерированных отчетов
 
-	GET /api/reports/list 
-
-Пример: https://platform.adserving.ru/api/report/list 
-
-Ответ:
-
+```text
+GET /reports/list
 ```
+
+Пример успешного ответа:
+
+```json
 [
-    ["0", "report_1.xslx", "Aggregated Report", "2023-06-27 11:56:07", "-", "test123", "once", "a70bf4f6229f792191bdd9f5cdfe99e1"],
-    ["2", "report_2.xslx", "Aggregated Report", "2023-06-13 11:56:16", "-", "test123", "once", "fa80fcf3e71fd159a0d1b8b2ca5e20fa"]
+   ["0", "report_1.xslx", "Aggregated Report", "2023-06-27 11:56:07", "-", "test123", "once", "a70bf4f6229f792191bdd9f5cdfe99e1"],
+   ["2", "report_2.xslx", "Aggregated Report", "2023-06-13 11:56:16", "-", "test123", "once", "fa80fcf3e71fd159a0d1b8b2ca5e20fa"]
 ]
+````
 
-0 - статус генерации отчета [0 - отчет в очереди, 1 - отчет готов, 2 - генерация отчета];
-report_1.xslx - ссылка на файл сегенерированного отчета, доступна через web при условии, что вы залогинены в кабинет;
-Aggregated Report - тип отчета;
-2023-06-27 11:56:07 - дата и время запроса генерации отчета;
-- - 
-test123 - название отчета;
-a70bf4f6229f792191bdd9f5cdfe99e1 - ID отчета
-```
+| Порядковы номер в массиве | Тип      | Описание                                                                                            |
+|:-------------------------:|----------|-----------------------------------------------------------------------------------------------------|
+|             0             | `String` | Статус генерации отчета<br/>`0` - отчет в очереди;<br/>`1` - отчет готов;<br/>`2` - генерация отчета|
+|             1             | `String` | Ссылка на файл отчета                                                                               |
+|             2             | `String` | Тип отчета                                                                                          |
+|             3             | `String` | Дата и время запроса на генерацию отчета                                                            |
+|             4             | `String` |                                                                                                     |
+|             5             | `String` |                                                                                                     |
+|             6             | `String` | Периодичность выгрузки отчета (всегда `once`)                                                       |
+|             7             | `String` | ID отчета                                                                              |
 
+Пример ошибки:
 
-Ошибка авторизации:
-
-```
+```json
 {
-	"report_id":"-1",
-	"message":"Unloginned user"
+   "report_id": "-1",
+   "message": "Error: the report has a wrong format!"
 }
 ```
 
-### Получение отчета
+Пример ошибки авторизации:
 
-	GET	/api/report/get/идентификатор_отчета
-
-**Идентификатор_отчета** - полученный идентфикатор отчета методом /api/report/get или /api/reports/list. Идентификатор_отчета имеет вид "fa80fcf3e71fd159a0d1b8b2ca5e20fa".
-
-Ошибка авторизации:
-
-```
+```json
 {
-	"report_id":"-1",
-	"message":"Unloginned user"
+   "report_id":"-1",
+   "message":"Unloginned user"
 }
+```
+
+### Скачивание отчета
+
+```text
+GET /report/get/<ID>
+```
+
+Вместо `<ID>` нужно указать идентификатор отчета (_см. [Получение списка сгенерированных отчетов](#Получение_списка_сренерированных_отчетов)_).
+В случае успешного запроса, начнется скачивание файла.
+
